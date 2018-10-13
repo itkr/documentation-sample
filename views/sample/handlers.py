@@ -7,8 +7,8 @@ from views.base import BaseJsonHandler
 
 class GetSampleHandler(BaseJsonHandler):
     """
-    Get
-    ===
+    Get Sample
+    ==========
 
     Dataを一つ取得する.
     """
@@ -31,7 +31,7 @@ class GetSampleHandler(BaseJsonHandler):
                             'type': 'string',
                         },
                         'value': {
-                            'type': 'string',
+                            'type': 'integer',
                         }
                     },
                     'required': ['id', 'value'],
@@ -55,8 +55,8 @@ class GetSampleHandler(BaseJsonHandler):
 
 class UpdateSampleHandler(BaseJsonHandler):
     """
-    Update
-    ======
+    Update Sample
+    =============
 
     Dataを更新する.
     """

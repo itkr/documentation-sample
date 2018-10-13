@@ -65,3 +65,12 @@ _api_routes = [
 _routes.extend(_api_routes)
 
 app = webapp2.WSGIApplication(_routes, debug=True)
+
+
+def main():
+    from paste import httpserver
+    httpserver.serve(app, host='127.0.0.1', port='8080')
+
+
+if __name__ == '__main__':
+    main()

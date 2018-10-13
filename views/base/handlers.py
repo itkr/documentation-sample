@@ -3,19 +3,17 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
 import json
-import traceback
 
 import jinja2
 import webapp2
 from jsonschema import ValidationError, validate
-from webob import exc
 
 from consts import ROOT_DIR
 
 from .schema import make_error_response_schema
 
 
-class JsonSchemaMixin(object):
+class BaseJsonHandler(webapp2.RequestHandler):
 
     @staticmethod
     def _is_error_response(response):
@@ -120,60 +118,24 @@ class JsonSchemaMixin(object):
         validate(request_body, self.request_schema(self.request.method))
         return request_body
 
-
-class BaseJsonHandler(webapp2.RequestHandler, JsonSchemaMixin):
-
     def write_json_response(self, response):
         self.response.headers[str('Content-Type')] = str('application/json')
         self.response.write(json.dumps(response))
 
-    def make_error_response(self, msg='error', **kwargs):
-        code = int(kwargs.get(str('code'), 400))
-        self.error(code)
-        return {
-            'status': code,
-            'message': msg
-        }
-
     def _get_valid_response_or_error(self, response):
-        if response is None:
-            return
-        _response = response
         try:
             validate(response, self.response_schema(self.request.method))
         except ValidationError as e:
             if self._is_error_response(response):
                 self.write_json_response(response)
                 return
-            response = self.make_error_response(
-                '{}: {}'.format(e.__class__.__name__, e.message), code=500)
-            response['response'] = _response
+            raise
         return response
 
     def dispatch(self):
         response = super(BaseJsonHandler, self).dispatch()
         response = self._get_valid_response_or_error(response)
-        if response:
-            self.write_json_response(response)
-
-    def handle_exception(self, exception, debug):
-        if isinstance(exception, ValidationError):
-            response = self.make_error_response(code=400, msg=exception.message)
-            response.update({
-                'validator': exception.validator,
-                'instance': exception.instance,
-                # 'schema': exception.schema,
-            })
-            return response
-        if isinstance(exception, exc.HTTPError):
-            return self.make_error_response(
-                code=exception.code,
-                msg='{} ({})'.format(exception.title, exception.detail or ''))
-        if not debug:
-            error_trace = traceback.format_exception_only(
-                type(exception), exception)
-            return self.make_error_response('{}: {}'.format(type(exception).__name__, error_trace))
-        return super(BaseJsonHandler, self).handle_exception(exception, debug)
+        self.write_json_response(response)
 
 
 class BaseTemplateHandler(webapp2.RequestHandler):
