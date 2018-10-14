@@ -1,0 +1,7 @@
+docutils
+functools32
+jsonschema
+pygments
+webapp2
+jinja2
+paste

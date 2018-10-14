@@ -3,14 +3,16 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
 import json
+import os
 
 import jinja2
 import webapp2
 from jsonschema import ValidationError, validate
 
-from consts import ROOT_DIR
-
 from .schema import make_error_response_schema
+
+
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 
 class BaseJsonHandler(webapp2.RequestHandler):
