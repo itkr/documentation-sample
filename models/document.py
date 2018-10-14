@@ -76,14 +76,6 @@ class Document(object):
     def doc_raw(self):
         return inspect.getdoc(self.route.handler) or ''
 
-    @property
-    def name(self):
-        return self.route.name
-
-    @property
-    def template(self):
-        return self.route.template
-
     def get_response_type(self):
         if hasattr(self.route.handler, 'write_json_response'):
             return 'application/json'
@@ -109,8 +101,8 @@ class Document(object):
 
     def to_dict(self):
         return {
-            'name': self.name,
-            'template': self.template,
+            'name': self.route.name,
+            'template': self.route.template,
             'doc_html': self.doc_html,
             'response_type': self.get_response_type(),
             'method': self.method,

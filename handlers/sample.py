@@ -2,7 +2,9 @@
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
-from views.base import BaseJsonHandler
+from webapp2 import Route
+
+from handlers.base import BaseJsonHandler
 
 
 class GetSampleHandler(BaseJsonHandler):
@@ -97,3 +99,9 @@ class UpdateSampleHandler(BaseJsonHandler):
             'message': 'success',
             'status': 200,
         }
+
+
+routes = (
+    Route('/<data_id>', GetSampleHandler, methods=['GET']),
+    Route('/<data_id>', UpdateSampleHandler, methods=['PUT']),
+)

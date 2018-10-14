@@ -8,9 +8,9 @@ import webapp2
 from webapp2 import Route, abort
 from webapp2_extras.routes import PathPrefixRoute
 
+from handlers.base import BaseTemplateHandler
+from handlers.sample import routes as sample_routes
 from models.document import Document, DocumentDoesNotExist
-from views.base import BaseTemplateHandler
-from views.sample import routes as sample_routes
 
 
 class DocumentListHandler(BaseTemplateHandler):

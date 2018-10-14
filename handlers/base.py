@@ -9,10 +9,29 @@ import jinja2
 import webapp2
 from jsonschema import ValidationError, validate
 
-from .schema import make_error_response_schema
+
+ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
-ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+def make_error_response_schema():
+    return {
+        'type': 'object',
+        'properties': {
+            'status': {
+                'type': 'integer',
+                'multipleOf': 1,
+                'minimum': 300,
+                'maximum': 600,
+                'exclusiveMaximum': True,
+                'examples': [404],
+            },
+            'message': {
+                'type': 'string',
+                'examples': ['Not Found'],
+            },
+        },
+        'required': ['status', 'message']
+    }
 
 
 class BaseJsonHandler(webapp2.RequestHandler):
