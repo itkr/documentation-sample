@@ -1,8 +1,8 @@
 docutils
 functools32
+gunicorn
+jinja2
 jsonschema
 pygments
 webapp2
-jinja2
-paste
 webob
