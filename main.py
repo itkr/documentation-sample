@@ -5,6 +5,7 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
 import webapp2
+from paste import httpserver
 from webapp2 import Route, abort
 from webapp2_extras.routes import PathPrefixRoute
 
@@ -68,8 +69,11 @@ app = webapp2.WSGIApplication(_routes, debug=True)
 
 
 def main():
-    from paste import httpserver
-    httpserver.serve(app, host='127.0.0.1', port='8080')
+    host = '127.0.0.1'
+    port = '8080'
+    print('Documentation: http://{}:{}/docs/'.format(host, port))
+
+    httpserver.serve(app, host=host, port=port)
 
 
 if __name__ == '__main__':

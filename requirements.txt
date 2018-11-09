@@ -5,3 +5,4 @@ pygments
 webapp2
 jinja2
 paste
+webob

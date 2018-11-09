@@ -9,7 +9,6 @@ import jinja2
 import webapp2
 from jsonschema import ValidationError, validate
 
-
 ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -48,7 +47,8 @@ class BaseJsonHandler(webapp2.RequestHandler):
 
     @staticmethod
     def _to_json_string(dictionary):
-        return json.dumps(dictionary, indent=2, separators=(',', ': '))
+        return json.dumps(
+            dictionary, indent=2, separators=(',', ': '), sort_keys=True)
 
     @classmethod
     def _make_sample(cls, obj):
