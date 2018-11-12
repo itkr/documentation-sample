@@ -7,7 +7,7 @@ import os
 
 import jinja2
 import webapp2
-from jsonschema import validate
+from jsonschema import validate, ValidationError
 
 ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -105,7 +105,10 @@ class BaseJsonHandler(webapp2.RequestHandler):
 
     def validate_request_body(self):
         request_body = self.parse_json_request()
-        validate(request_body, self.request_schema(self.request.method))
+        try:
+            validate(request_body, self.request_schema(self.request.method))
+        except ValidationError as e:
+            self.abort(400, e)
         return request_body
 
     def write_json_response(self, response):
