@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "value": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "value"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "status",
+    "message",
+    "result"
+  ],
+  "additionalProperties": false
+}

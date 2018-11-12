@@ -7,43 +7,12 @@ import os
 
 import jinja2
 import webapp2
-from jsonschema import ValidationError, validate
+from jsonschema import validate
 
 ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
-def make_error_response_schema():
-    return {
-        'type': 'object',
-        'properties': {
-            'status': {
-                'type': 'integer',
-                'multipleOf': 1,
-                'minimum': 300,
-                'maximum': 600,
-                'exclusiveMaximum': True,
-                'examples': [404],
-            },
-            'message': {
-                'type': 'string',
-                'examples': ['Not Found'],
-            },
-        },
-        'required': ['status', 'message']
-    }
-
-
 class BaseJsonHandler(webapp2.RequestHandler):
-
-    @staticmethod
-    def _is_error_response(response):
-        if not isinstance(response, dict):
-            return False
-        try:
-            validate(response, make_error_response_schema())
-        except ValidationError:
-            return False
-        return True
 
     @staticmethod
     def _to_json_string(dictionary):
@@ -144,13 +113,8 @@ class BaseJsonHandler(webapp2.RequestHandler):
         self.response.write(json.dumps(response))
 
     def _get_valid_response_or_error(self, response):
-        try:
-            validate(response, self.response_schema(self.request.method))
-        except ValidationError as e:
-            if self._is_error_response(response):
-                self.write_json_response(response)
-                return
-            raise
+        # 不正な値ならValidationErrorが発生
+        validate(response, self.response_schema(self.request.method))
         return response
 
     def dispatch(self):
