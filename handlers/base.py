@@ -7,7 +7,7 @@ import os
 
 import jinja2
 import webapp2
-from jsonschema import validate, ValidationError
+from jsonschema import ValidationError, validate
 
 ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
 
