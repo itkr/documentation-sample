@@ -3,6 +3,7 @@ functools32
 gunicorn
 jinja2
 jsonschema
+paste
 pygments
 webapp2
 webob
