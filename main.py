@@ -50,6 +50,7 @@ class DocumentDetailHandler(BaseTemplateHandler):
 
 # Documentation
 _routes = [
+    Route('/', webapp2.RedirectHandler, defaults={'_uri': '/docs/'}),
     PathPrefixRoute('/docs', [
         Route('/detail', DocumentDetailHandler),
         Route('/', DocumentListHandler),
@@ -69,11 +70,7 @@ app = webapp2.WSGIApplication(_routes, debug=True)
 
 
 def main():
-    host = '127.0.0.1'
-    port = '8080'
-    print('Documentation: http://{}:{}/docs/'.format(host, port))
-
-    httpserver.serve(app, host=host, port=port)
+    httpserver.serve(app, host='127.0.0.1', port='8000')
 
 
 if __name__ == '__main__':
