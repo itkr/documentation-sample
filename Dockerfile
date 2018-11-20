@@ -11,8 +11,7 @@ ENV PYTHONIOENCODING "utf-8"
 # 依存モジュールインストール
 
 RUN apt update -y
-#RUN apt install -y python3-dev python3-pip wget unzip gnupg curl
-RUN apt install -y python-dev python-pip wget unzip gnupg curl
+RUN apt install -y python-dev python-pip
 
 # コードコピー
 
@@ -22,11 +21,10 @@ COPY . ${PROJECT_PATH}/
 
 # Pythonライブラリ
 
-#RUN pip3 install -r requirements.txt
 RUN pip install -r requirements.txt
 
 # 実行コマンド
 
-#ENTRYPOINT ["python3", "main.py"]
-#ENTRYPOINT ["python", "main.py"]
-ENTRYPOINT ["gunicorn", "main:app"]
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind=0.0.0.0:8000", "main:app"]
