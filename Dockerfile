@@ -10,8 +10,8 @@ ENV PYTHONIOENCODING "utf-8"
 
 # 依存モジュールインストール
 
-RUN apt update -y
-RUN apt install -y python-dev python-pip
+RUN apt-get update -y
+RUN apt-get install -y python-dev python-pip
 
 # コードコピー
 
