@@ -1,15 +1,15 @@
-# documentation-by-jsonschema
+# documentation-sample
 
 ## Get code
 
 ```bash
-git clone git@gitlab.com:itkr/documentation-by-jsonschema.git
+git clone git@github.com:itkr/documentation-sample.git
 ```
 
 ## Install libraries
 
 ```bash
-cd ./documentation-by-jsonschema
+cd ./documentation-sample
 pip install -r requirements.txt
 ```
 
