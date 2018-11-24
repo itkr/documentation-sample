@@ -20,6 +20,12 @@ class GetSampleHandler(BaseJsonHandler):
     ==========
 
     Dataを一つ取得する.
+
+    .. code-block:: python
+
+        # sample code block
+        for i in range(10):
+            print(i)
     """
 
     @classmethod
