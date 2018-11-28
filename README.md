@@ -4,21 +4,50 @@
 
 ```bash
 git clone git@github.com:itkr/documentation-sample.git
+cd ./documentation-sample
 ```
 
-## Install libraries
+## Run server using local Python and Gunicorn
+
+### Install libraries
 
 ```bash
-cd ./documentation-sample
 pip install -r requirements.txt
 ```
 
-## Run server
+### Run server
 
 ```bash
 gunicorn main:app
 ```
 
-## Access
+http://localhost:8000/docs/
+
+## Run server using Docker
+
+### Build
+
+```bash
+docker build -t docs .
+```
+
+### Run
+
+```
+docker run --rm -it -p 8000:8000 docs
+```
 
 http://localhost:8000/docs/
+
+## Required libraries
+
+| name       | reason                                           |
+|------------|--------------------------------------------------|
+| docutils   | reStructuredTextを扱う                           |
+| gunicorn   | WSGI HTTP Server                                 |
+| jinja2     | テンプレートエンジン                             |
+| jsonschema | JSONSchemaを扱う                                 |
+| paste      | ローカルでwebサーバーを動かす                    |
+| pygments   | reStructuredTextでコードブロックを扱うときに使用 |
+| webapp2    | Webフレームワーク                                |
+| webob      | webapp2で使用                                    |

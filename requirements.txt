@@ -1,8 +1,8 @@
-docutils  # reStructuredTextを扱う
-gunicorn  # WSGI HTTP Server
-jinja2  # テンプレートエンジン
-jsonschema  # JSONSchemaを扱う
-paste  # ローカルでwebサーバーを動かす
-pygments  # reStructuredTextでコードブロックを扱うときに使用
-webapp2  # Webフレームワーク
-webob  # webapp2で使用
+docutils
+gunicorn
+jinja2
+jsonschema
+paste
+pygments
+webapp2
+webob
